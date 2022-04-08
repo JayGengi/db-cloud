@@ -174,6 +174,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
 ```yaml
 auth:
-  prepare-data: false
+  prepare-data: true
 ```
 
