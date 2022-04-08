@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>db-feign-api</artifactId>
+    <description>
+        consumer调用provider的服务,网上的教程都是在consumer处写好feign,然后引用provider的mapping...
+        这样consumer就需要去了解provider对应的controller,或者找provider的开发人员了解,多了一些时间和沟通成本...
+        既然服务是provider提供的,应该由provider来提供feign接口,所有服务的feign接口都写在feign-api模块,
+        服务消费方工程引入feign-api即可
+    </description>
+
+
+    <parent>
+        <artifactId>db-cloud</artifactId>
+        <groupId>org.duobang.cloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <!--feign api-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

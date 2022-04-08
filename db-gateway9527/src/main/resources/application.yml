@@ -1,0 +1,48 @@
+server:
+  port: 9527
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #配置Nacos地址
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+      routes:
+        - id: payment_route #路由的ID
+          uri: lb://nacos-payment-service
+          predicates: # 断言，路径相匹配的进行路由
+            - Path=/nacos-payment-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: auth_route #路由的ID
+          uri: lb://nacos-auth
+          predicates: # 断言，路径相匹配的进行路由
+            - Path=/nacos-auth/**
+          filters:
+            - StripPrefix=1
+            - Token=token  #注意：TokenGatewayFilterFactory，只需要写Token
+
+auth:
+  ignore:
+    urls: #配置白名单路径
+      - /doc.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /actuator/**
+      - /error
+      - /sys/login/**
+      - /sys/user/ignore
+      - /static/**
